@@ -1,0 +1,1335 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f6f3ed">
+<meta name="description" content="Zaya Store: moda feminina contemporânea, peças versáteis e acessórios escolhidos para acompanhar você todos os dias.">
+<title>Zaya Store | Moda feminina contemporânea</title>
+
+<style>
+:root {
+  --azul: #5685f5;
+  --rosa: #f27cab;
+  --roxo: #9474e8;
+  --verde: #66bd91;
+  --fundo: #fffafd;
+  --card: #ffffff;
+  --texto: #29243a;
+  --borda: #eee7f1;
+}
+
+body.dark {
+  --fundo: #191623;
+  --card: #292438;
+  --texto: #f7f2ff;
+  --borda: #40364e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  transition: .3s;
+}
+
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; }
+
+header {
+  background: var(--card);
+  padding: 18px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--borda);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--rosa);
+}
+
+.logo span { color: var(--roxo); }
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a:hover { color: var(--rosa); }
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.icon-button {
+  background: var(--fundo);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+}
+
+.cart-button {
+  background: var(--roxo);
+  color: white;
+}
+
+#search-box {
+  display: none;
+  padding: 15px 5%;
+  background: var(--card);
+}
+
+#search {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.hero {
+  padding: 25px 5%;
+}
+
+.carousel {
+  height: 440px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--roxo);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.slide.active { display: block; }
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(20,15,35,.8), rgba(20,15,35,.12));
+}
+
+.slide-content {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 8%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 450px;
+}
+
+.slide-content h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.slide-content p {
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+
+.primary-button {
+  background: linear-gradient(120deg, var(--roxo), var(--rosa));
+  color: white;
+  padding: 13px 20px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: white;
+  color: #29243a;
+  font-size: 20px;
+}
+
+.prev { left: 12px; }
+.next { right: 12px; }
+
+.dots {
+  position: absolute;
+  z-index: 3;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.dot.active { background: var(--rosa); }
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 30px 6%;
+  text-align: center;
+}
+
+.benefits div { line-height: 1.7; }
+.benefits strong { display: block; font-size: 14px; }
+.benefits span { font-size: 25px; }
+
+section.products {
+  padding: 60px 6%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-title h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.section-title p { opacity: .7; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.product {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 17px;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px #00000012;
+}
+
+.product img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.product-info { padding: 16px; }
+
+.product-info small { color: var(--roxo); }
+
+.product-info h3 { margin: 8px 0; }
+
+.product-info p {
+  font-size: 13px;
+  opacity: .75;
+  min-height: 40px;
+  line-height: 1.5;
+}
+
+.price {
+  display: block;
+  font-size: 21px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.buy-button {
+  width: 100%;
+  background: var(--azul);
+  color: white;
+  font-weight: bold;
+}
+
+.buy-button:hover { background: var(--roxo); }
+
+.about {
+  margin: 0 6% 60px;
+  padding: 45px;
+  border-radius: 20px;
+  background: linear-gradient(120deg,
+    #5685f51c, #f27cab25, #66bd9125);
+  text-align: center;
+}
+
+.about h2 { margin-bottom: 15px; }
+.about p { line-height: 1.8; }
+
+.newsletter {
+  background: var(--card);
+  border-top: 1px solid var(--borda);
+  padding: 50px 6%;
+  text-align: center;
+}
+
+.newsletter p { margin: 12px 0; }
+
+.newsletter form {
+  max-width: 500px;
+  display: flex;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.newsletter input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+footer {
+  background: var(--card);
+  padding: 40px 6% 20px;
+  border-top: 1px solid var(--borda);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+footer h3 { margin-bottom: 15px; }
+
+footer p, footer a {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 10px;
+  opacity: .8;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.socials a {
+  background: var(--roxo);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.copyright {
+  border-top: 1px solid var(--borda);
+  margin-top: 25px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+#cart-panel {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  z-index: 30;
+  width: min(420px, 100%);
+  height: 100dvh;
+  padding: 22px;
+  background: var(--card);
+  box-shadow: 0 0 30px #0002;
+  transition: right .3s;
+  display: flex;
+  flex-direction: column;
+}
+
+#cart-panel.open { right: 0; }
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--borda);
+}
+
+#cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+.cart-item img {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cart-item-info { flex: 1; }
+.cart-item-info p { font-size: 13px; margin-top: 5px; }
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.quantity button {
+  background: var(--fundo);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+  padding: 4px 9px;
+}
+
+.remove {
+  color: var(--rosa);
+  background: transparent;
+  padding: 5px;
+}
+
+.cart-bottom {
+  border-top: 1px solid var(--borda);
+  padding-top: 18px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+#checkout, #clear-cart { width: 100%; margin-top: 8px; }
+#checkout { background: var(--verde); color: white; font-weight: bold; }
+#clear-cart { background: var(--fundo); color: var(--texto); border: 1px solid var(--borda); }
+
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #0008;
+}
+
+#overlay.show { display: block; }
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--texto);
+  color: var(--card);
+  padding: 12px 20px;
+  border-radius: 10px;
+  z-index: 50;
+  display: none;
+  max-width: 90%;
+  text-align: center;
+}
+
+#toast.show { display: block; }
+
+@media (max-width: 900px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .benefits { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  header { padding: 14px 4%; }
+  nav { width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px; }
+  nav a { font-size: 13px; }
+  .hero { padding: 15px 4%; }
+  .carousel { height: 400px; }
+  .slide-content { left: 8%; right: 8%; }
+  .slide-content h1 { font-size: 35px; }
+  .benefits { padding: 25px 4%; gap: 15px 8px; }
+  .benefits strong { font-size: 11px; }
+  section.products { padding: 45px 4%; }
+  .product-grid { gap: 12px; }
+  .product img { height: 155px; }
+  .product-info { padding: 11px; }
+  .product-info h3 { font-size: 15px; }
+  .product-info p { font-size: 11px; }
+  .price { font-size: 17px; }
+  .buy-button { font-size: 12px; padding: 10px 5px; }
+  .about { margin: 0 4% 40px; padding: 28px 20px; }
+  .newsletter form { flex-direction: column; }
+  .footer-grid { gap: 20px 12px; }
+  footer { padding: 30px 5% 15px; }
+}
+
+:root {
+  --azul: #75816a;
+  --rosa: #b5755e;
+  --roxo: #59634e;
+  --verde: #75816a;
+  --fundo: #f6f3ed;
+  --card: #fffefa;
+  --texto: #292a24;
+  --borda: #e7e2d8;
+}
+
+body.dark {
+  --fundo: #1d201b;
+  --card: #272b24;
+  --texto: #f4f0e8;
+  --borda: #3d4338;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: .01em;
+}
+
+header {
+  padding: 18px 7%;
+  box-shadow: 0 4px 18px #292a2408;
+}
+
+.logo {
+  color: var(--texto);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -.06em;
+}
+
+.logo span {
+  color: var(--rosa);
+  font-weight: 400;
+}
+
+nav { gap: 30px; }
+nav a { font-size: 13px; transition: color .2s; }
+nav a:hover { color: var(--rosa); }
+
+button { border-radius: 3px; }
+.icon-button { border-radius: 50%; }
+.cart-button { background: var(--texto); }
+
+.hero { padding: 24px 7% 0; }
+.carousel {
+  height: min(590px, 62vw);
+  min-height: 390px;
+  border-radius: 4px;
+  background: #b4a694;
+}
+
+.slide img { object-position: center 42%; }
+.slide img.full-photo {
+  object-fit: contain;
+  object-position: center;
+  background: #e8e2d8;
+}
+.slide::after {
+  background: linear-gradient(90deg, #1d201bbd 0%, #1d201b61 43%, transparent 100%);
+}
+
+.slide-content { left: 9%; max-width: 500px; }
+.slide-content > p:first-child {
+  font-size: 11px;
+  letter-spacing: .2em;
+  font-weight: 700;
+}
+
+.slide-content h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: 1.02;
+}
+
+.slide-content p { max-width: 360px; font-size: 15px; }
+.primary-button {
+  background: var(--card);
+  color: var(--texto);
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: background .2s, color .2s;
+}
+
+.primary-button:hover { background: var(--rosa); color: white; }
+.arrow { border-radius: 50%; opacity: .88; }
+.dot { width: 8px; height: 8px; }
+.dot.active { background: #fff; }
+
+.benefits {
+  padding: 30px 7%;
+  border-bottom: 1px solid var(--borda);
+}
+
+.benefits span { font-size: 20px; filter: grayscale(1); }
+.benefits strong {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+section.products { padding: 82px 7%; }
+.section-title { margin-bottom: 40px; }
+.section-title h2, .about h2, .newsletter h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(29px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -.04em;
+}
+
+.section-title p { font-size: 13px; }
+.product-grid { gap: 18px; }
+.product {
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  transition: transform .3s ease;
+}
+
+.product:hover {
+  transform: translateY(-4px);
+  box-shadow: none;
+}
+
+.product img {
+  height: clamp(220px, 28vw, 370px);
+  background: #e8e2d8;
+}
+
+.product-info { padding: 16px 2px 6px; }
+.product-info small {
+  color: var(--rosa);
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+
+.product-info h3 {
+  margin: 8px 0 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.product-info p { min-height: 38px; font-size: 12px; }
+.price { margin: 13px 0; font-size: 16px; }
+.buy-button {
+  padding: 12px;
+  border: 1px solid var(--texto);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--texto);
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: .2s;
+}
+
+.buy-button:hover { background: var(--texto); color: var(--card); }
+
+.about {
+  margin: 0 7% 70px;
+  padding: 64px 10%;
+  border-radius: 2px;
+  background: #e8e4d9;
+  color: #292a24;
+}
+
+body.dark .about { background: #34392f; color: var(--texto); }
+.about h2 { margin-bottom: 18px; }
+.about p { max-width: 690px; margin: auto; font-size: 14px; }
+
+.newsletter {
+  padding: 65px 6%;
+  background: var(--texto);
+  color: var(--fundo);
+}
+
+.newsletter p { font-size: 13px; }
+.newsletter input { border-radius: 2px; }
+.newsletter .primary-button { background: var(--rosa); color: white; }
+
+footer { padding: 50px 7% 20px; }
+footer h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.socials a { border-radius: 2px; background: var(--roxo); }
+#cart-panel { box-shadow: -12px 0 40px #0002; }
+#checkout { background: var(--roxo); border-radius: 2px; }
+#clear-cart { border-radius: 2px; }
+.footer-signature {
+  margin-top: 12px;
+  color: var(--rosa);
+  font-family: "Segoe Script", "Brush Script MT", cursive;
+  font-size: 24px !important;
+  font-style: italic;
+  line-height: 1.2;
+  opacity: 1 !important;
+}
+.footer-butterfly {
+  width: 25px;
+  height: 25px;
+  margin-left: 4px;
+  vertical-align: -4px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+@media (max-width: 900px) {
+  header { padding-inline: 5%; }
+  .hero { padding-inline: 5%; }
+  section.products { padding-inline: 5%; }
+}
+
+@media (max-width: 600px) {
+  header { gap: 12px; }
+  nav { gap: 15px; }
+  .hero { padding: 12px 4% 0; }
+  .carousel { min-height: 430px; height: 115vw; max-height: 520px; }
+  .slide-content { left: 9%; right: 9%; }
+  .slide-content h1 { font-size: 38px; }
+  .slide-content p { font-size: 13px; }
+  .benefits { padding: 22px 4%; }
+  .benefits strong { font-size: 9px; }
+  section.products { padding: 58px 4%; }
+  .product-grid { gap: 22px 14px; }
+  .product img { height: 52vw; max-height: 270px; }
+  .product-info h3 { font-size: 17px; }
+  .about { margin: 0 4% 45px; padding: 42px 8%; }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a href="#inicio" class="logo">zaya<span>store</span></a>
+
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre nós</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <div class="header-buttons">
+    <button class="icon-button" id="search-toggle" aria-label="Pesquisar">🔍</button>
+    <button class="icon-button" id="theme-toggle" aria-label="Alternar tema">🌙</button>
+    <button class="cart-button" id="open-cart">🛍️ <span id="cart-count">0</span></button>
+  </div>
+</header>
+
+<div id="search-box">
+  <input id="search" type="search" placeholder="Pesquisar produtos...">
+</div>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="carousel">
+
+    <article class="slide active">
+      <img class="full-photo" src="zaya-sorriso.avif" alt="Mulher sorridente posando ao ar livre">
+      <div class="slide-content">
+        <p>COLEÇÃO PRIMAVERA · 2026</p>
+        <h1>Vista o que<br>faz sentido.</h1>
+        <p>Moda feminina contemporânea, feita para acompanhar o seu ritmo com leveza.</p>
+        <a href="#produtos" class="primary-button">Conheça a coleção →</a>
+      </div>
+    </article>
+
+    <article class="slide">
+      <img class="full-photo" src="zaya-verao.webp" alt="Conjunto de shorts e saia para o verão">
+      <div class="slide-content">
+        <p>ESSENCIAIS ZAYA</p>
+        <h1>Menos excesso.<br>Mais você.</h1>
+        <p>Peças versáteis, texturas naturais e combinações que duram além da estação.</p>
+        <a href="#produtos" class="primary-button">Ver peças →</a>
+      </div>
+    </article>
+
+    <article class="slide">
+      <img class="full-photo" src="zaya-colecao-1.jpg" alt="Foto da coleção Zaya Store">
+      <div class="slide-content">
+        <p>UMA NOVA INSPIRAÇÃO</p>
+        <h1>Seu jeito de<br>ser, sempre.</h1>
+        <p>Descubra uma seleção especial da Zaya Store.</p>
+        <a href="#produtos" class="primary-button">Ver coleção →</a>
+      </div>
+    </article>
+
+    <article class="slide">
+      <img class="full-photo" src="zaya-colecao-2.jpg" alt="Look da coleção Zaya Store">
+      <div class="slide-content">
+        <p>ESCOLHAS COM PERSONALIDADE</p>
+        <h1>Encontre o<br>seu novo look.</h1>
+        <p>Novas inspirações para expressar seu estilo todos os dias.</p>
+        <a href="#produtos" class="primary-button">Explorar →</a>
+      </div>
+    </article>
+
+    <article class="slide">
+      <img class="full-photo" src="zaya-colecao-3.jpg" alt="Nova inspiração de look da Zaya Store">
+      <div class="slide-content">
+        <p>SEU PRÓXIMO FAVORITO</p>
+        <h1>Vista sua<br>autenticidade.</h1>
+        <p>Uma nova inspiração para compor o seu estilo.</p>
+        <a href="#produtos" class="primary-button">Descobrir →</a>
+      </div>
+    </article>
+
+    <article class="slide">
+      <img class="full-photo" src="zaya-colecao-4.jpg" alt="Mais uma inspiração de moda da Zaya Store">
+      <div class="slide-content">
+        <p>MAIS INSPIRAÇÃO</p>
+        <h1>Um look<br>com a sua cara.</h1>
+        <p>Descubra novas formas de expressar o seu estilo.</p>
+        <a href="#produtos" class="primary-button">Ver coleção →</a>
+      </div>
+    </article>
+
+    <button class="arrow prev" id="prev" aria-label="Slide anterior">❮</button>
+    <button class="arrow next" id="next" aria-label="Próximo slide">❯</button>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div><span>✦</span><strong>Estilo para todos os dias</strong></div>
+  <div><span>↗</span><strong>Peças fáceis de combinar</strong></div>
+  <div><span>◌</span><strong>Curadoria independente</strong></div>
+  <div><span>♡</span><strong>Detalhes que fazem diferença</strong></div>
+</section>
+
+<section class="products" id="produtos">
+  <div class="section-title">
+    <h2>Peças para viver bem.</h2>
+    <p>Uma curadoria enxuta de roupas e acessórios para o seu dia a dia.</p>
+  </div>
+
+  <div class="product-grid" id="product-grid">
+
+    <article class="product" data-id="1" data-name="Vestido Alba" data-price="70.00">
+      <img src="vestido-alba.jpg" alt="Vestido Alba">
+      <div class="product-info">
+        <small>VESTIDOS</small>
+        <h3>Vestido Alba</h3>
+        <p>Caimento leve e elegante para acompanhar seus momentos.</p>
+        <span class="price">R$ 70,00</span>
+        <button class="buy-button" data-buy="1">Comprar agora</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="2" data-name="Conjunto Chic" data-price="180.00">
+      <img src="conjunto-chic.webp" alt="Conjunto feminino de alfaiataria camel">
+      <div class="product-info">
+        <small>CONJUNTOS</small>
+        <h3>Conjunto Chic</h3>
+        <p>Um look elegante e versátil para ocasiões especiais.</p>
+        <span class="price">R$ 180,00</span>
+        <button class="buy-button" data-buy="2">Comprar agora</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="3" data-name="Camisa Serena" data-price="66.00">
+      <img src="camisa-serena.webp" alt="Camisa feminina lisa de botões">
+      <div class="product-info">
+        <small>ROUPAS</small>
+        <h3>Camisa Serena</h3>
+        <p>Algodão leve, caimento solto e mil possibilidades.</p>
+        <span class="price">R$ 66,00</span>
+        <button class="buy-button" data-buy="3">Comprar agora</button>
+      </div>
+    </article>
+
+    <article class="product" data-id="4" data-name="Blazer Siena" data-price="300.00">
+      <img src="blazer-siena.avif" alt="Blazer feminino de alfaiataria">
+      <div class="product-info">
+        <small>ROUPAS</small>
+        <h3>Blazer Siena</h3>
+        <p>Alfaiataria versátil para compor looks elegantes.</p>
+        <span class="price">R$ 300,00</span>
+        <button class="buy-button" data-buy="4">Comprar agora</button>
+      </div>
+    </article>
+
+  </div>
+  <p id="no-results" style="display:none;text-align:center;padding:25px">
+    Nenhum produto encontrado.
+  </p>
+</section>
+
+<section class="about" id="sobre">
+  <h2>Vista menos. Escolha melhor.</h2>
+  <p>A Zaya Store é uma boutique independente de moda feminina contemporânea. Selecionamos peças versáteis, materiais agradáveis e acessórios com personalidade — para que se vestir bem tenha a ver com você, não com regras.</p>
+</section>
+
+<section class="newsletter">
+  <h2>Uma carta, de vez em quando.</h2>
+  <p>Novidades, ideias de combinações e acesso antecipado à próxima coleção.</p>
+  <form id="newsletter-form">
+    <input type="email" id="email" placeholder="Seu melhor e-mail" required>
+    <button class="primary-button" type="submit">Quero receber</button>
+  </form>
+  <p id="newsletter-message" aria-live="polite"></p>
+</section>
+</main>
+
+<footer id="contato">
+  <div class="footer-grid">
+    <div>
+      <a href="#inicio" class="logo">zaya<span>store</span></a>
+      <p style="margin-top:12px">Moda para a vida como ela é.</p>
+    </div>
+
+    <div>
+      <h3>Navegação</h3>
+      <a href="#inicio">Início</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#sobre">Sobre nós</a>
+    </div>
+
+    <div>
+      <h3>Contato</h3>
+      <a href="mailto:contato@zayastore.com.br">E-mail</a>
+      <p>Atendimento de segunda a sexta.</p>
+    </div>
+
+    <div>
+      <h3>Siga nossas redes</h3>
+      <div class="socials">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+      <p>Personalize os links com os dados da sua loja.</p>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>© 2026 Zaya Store. Modelo demonstrativo.</p>
+    <p class="footer-signature">Maria Gabriela
+      <svg class="footer-butterfly" viewBox="0 0 32 32" role="img" aria-label="Borboleta">
+        <path d="M15 15C11 7 4 7 5 13c.4 2.5 3.8 4 9 4-5 1-8 3-7 6 1.4 4 6 2 9-5"></path>
+        <path d="M17 15c4-8 11-8 10-2-.4 2.5-3.8 4-9 4 5 1 8 3 7 6-1.4 4-6 2-9-5"></path>
+        <path d="M16 14v9m0-9c-2-2-2-4-1-5m1 5c2-2 2-4 1-5"></path>
+      </svg>
+    </p>
+  </div>
+</footer>
+
+<div id="overlay"></div>
+
+<aside id="cart-panel" aria-label="Carrinho de compras">
+  <div class="cart-header">
+    <h2>Minha sacola</h2>
+    <button class="icon-button" id="close-cart" aria-label="Fechar carrinho">✕</button>
+  </div>
+
+  <div id="cart-items">
+    <p style="text-align:center;padding:30px">Seu carrinho está vazio. 💜</p>
+  </div>
+
+  <div class="cart-bottom">
+    <div class="cart-total">
+      <span>Total:</span>
+      <strong id="cart-total">R$ 0,00</strong>
+    </div>
+    <button id="checkout">Finalizar pedido</button>
+    <button id="clear-cart">Limpar carrinho</button>
+    <p style="font-size:11px;margin-top:12px;opacity:.7">
+      Demonstração: nenhum pagamento será processado.
+    </p>
+  </div>
+</aside>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ELEMENTOS
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+// MODO CLARO E ESCURO
+try {
+  if (localStorage.getItem("colore-theme") === "dark") {
+    document.body.classList.add("dark");
+  }
+} catch (e) {}
+
+function updateTheme() {
+  $("#theme-toggle").textContent =
+    document.body.classList.contains("dark") ? "☀️" : "🌙";
+}
+
+updateTheme();
+
+$("#theme-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  updateTheme();
+
+  try {
+    localStorage.setItem(
+      "colore-theme",
+      document.body.classList.contains("dark") ? "dark" : "light"
+    );
+  } catch (e) {}
+});
+
+// PESQUISA
+$("#search-toggle").addEventListener("click", () => {
+  const box = $("#search-box");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+  if (box.style.display === "block") $("#search").focus();
+});
+
+$("#search").addEventListener("input", event => {
+  const query = event.target.value.toLocaleLowerCase("pt-BR");
+  let found = 0;
+
+  $$(".product").forEach(product => {
+    const matches = product.textContent.toLocaleLowerCase("pt-BR")
+      .includes(query);
+    product.style.display = matches ? "" : "none";
+    if (matches) found++;
+  });
+
+  $("#no-results").style.display = found ? "none" : "block";
+});
+
+// CARROSSEL
+const slides = $$(".slide");
+let slideIndex = 0;
+let carouselTimer;
+
+slides.forEach((slide, i) => {
+  const dot = document.createElement("button");
+  dot.className = "dot";
+  dot.setAttribute("aria-label", `Mostrar slide ${i + 1}`);
+  dot.addEventListener("click", () => showSlide(i));
+  $("#dots").appendChild(dot);
+});
+
+function showSlide(index) {
+  slideIndex = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === slideIndex);
+  });
+
+  $$(".dot").forEach((dot, i) => {
+    dot.classList.toggle("active", i === slideIndex);
+  });
+
+  clearInterval(carouselTimer);
+  carouselTimer = setInterval(() => showSlide(slideIndex + 1), 5000);
+}
+
+$("#prev").addEventListener("click", () => showSlide(slideIndex - 1));
+$("#next").addEventListener("click", () => showSlide(slideIndex + 1));
+showSlide(0);
+
+// PRODUTOS E CARRINHO
+const products = $$(".product").map(card => ({
+  id: card.dataset.id,
+  name: card.dataset.name,
+  price: Number(card.dataset.price),
+  image: card.querySelector("img").src
+}));
+
+let cart = [];
+
+try {
+  const saved = JSON.parse(localStorage.getItem("colore-cart") || "[]");
+  if (Array.isArray(saved)) {
+    cart = saved.filter(item =>
+      products.some(p => p.id === item.id) &&
+      Number.isFinite(Number(item.quantity)) &&
+      Number(item.quantity) > 0
+    ).map(item => ({
+      id: item.id,
+      quantity: Math.min(99, Math.floor(Number(item.quantity)))
+    }));
+  }
+} catch (e) {}
+
+function money(value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem("colore-cart", JSON.stringify(cart));
+  } catch (e) {}
+}
+
+function totalItems() {
+  return cart.reduce((sum, item) => sum + item.quantity, 0);
+}
+
+function totalPrice() {
+  return cart.reduce((sum, item) => {
+    const product = products.find(p => p.id === item.id);
+    return sum + (product ? product.price * item.quantity : 0);
+  }, 0);
+}
+
+function renderCart() {
+  $("#cart-count").textContent = totalItems();
+  $("#cart-total").textContent = money(totalPrice());
+
+  const container = $("#cart-items");
+  container.replaceChildren();
+
+  if (!cart.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "Seu carrinho está vazio. 💜";
+    empty.style.textAlign = "center";
+    empty.style.padding = "30px";
+    container.appendChild(empty);
+    $("#checkout").disabled = true;
+    $("#clear-cart").disabled = true;
+    saveCart();
+    return;
+  }
+
+  $("#checkout").disabled = false;
+  $("#clear-cart").disabled = false;
+
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) return;
+
+    const row = document.createElement("div");
+    row.className = "cart-item";
+
+    const img = document.createElement("img");
+    img.src = product.image;
+    img.alt = product.name;
+
+    const info = document.createElement("div");
+    info.className = "cart-item-info";
+
+    const name = document.createElement("strong");
+    name.textContent = product.name;
+
+    const price = document.createElement("p");
+    price.textContent = money(product.price * item.quantity);
+
+    const quantity = document.createElement("div");
+    quantity.className = "quantity";
+
+    const minus = document.createElement("button");
+    minus.textContent = "−";
+    minus.setAttribute("aria-label", "Diminuir quantidade");
+    minus.addEventListener("click", () => changeQuantity(item.id, -1));
+
+    const number = document.createElement("span");
+    number.textContent = item.quantity;
+
+    const plus = document.createElement("button");
+    plus.textContent = "+";
+    plus.disabled = item.quantity >= 99;
+    plus.setAttribute("aria-label", "Aumentar quantidade");
+    plus.addEventListener("click", () => changeQuantity(item.id, 1));
+
+    quantity.append(minus, number, plus);
+    info.append(name, price, quantity);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.textContent = "✕";
+    remove.setAttribute("aria-label", "Remover produto");
+    remove.addEventListener("click", () => removeProduct(item.id));
+
+    row.append(img, info, remove);
+    container.appendChild(row);
+  });
+
+  saveCart();
+}
+
+function toast(message) {
+  const element = $("#toast");
+  element.textContent = message;
+  element.classList.add("show");
+
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => {
+    element.classList.remove("show");
+  }, 2500);
+}
+
+function addToCart(id) {
+  const product = products.find(p => p.id === String(id));
+  if (!product) return;
+
+  const item = cart.find(i => i.id === product.id);
+
+  if (item) {
+    if (item.quantity >= 99) {
+      toast("Limite de 99 unidades por produto.");
+      return;
+    }
+    item.quantity++;
+  } else {
+    cart.push({ id: product.id, quantity: 1 });
+  }
+
+  renderCart();
+  toast(product.name + " adicionado ao carrinho!");
+}
+
+function changeQuantity(id, amount) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+
+  item.quantity += amount;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(i => i.id !== id);
+  } else {
+    item.quantity = Math.min(99, item.quantity);
+  }
+
+  renderCart();
+}
+
+function removeProduct(id) {
+  cart = cart.filter(i => i.id !== id);
+  renderCart();
+  toast("Produto removido.");
+}
+
+$$("[data-buy]").forEach(button => {
+  button.addEventListener("click", () => addToCart(button.dataset.buy));
+});
+
+// ABRIR E FECHAR CARRINHO
+function openCart() {
+  $("#cart-panel").classList.add("open");
+  $("#overlay").classList.add("show");
+  document.body.style.overflow = "hidden";
+  $("#close-cart").focus();
+}
+
+function closeCart() {
+  $("#cart-panel").classList.remove("open");
+  $("#overlay").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+$("#open-cart").addEventListener("click", openCart);
+$("#close-cart").addEventListener("click", closeCart);
+$("#overlay").addEventListener("click", closeCart);
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeCart();
+});
+
+$("#clear-cart").addEventListener("click", () => {
+  cart = [];
+  renderCart();
+  toast("Carrinho limpo!");
+});
+
+// FINALIZAR PEDIDO - DEMONSTRAÇÃO
+$("#checkout").addEventListener("click", () => {
+  if (!cart.length) return;
+
+  const summary = cart.map(item => {
+    const product = products.find(p => p.id === item.id);
+    return `${product.name} x ${item.quantity}`;
+  }).join("\n");
+
+  alert(
+    "RESUMO DO PEDIDO\n\n" + summary +
+    "\n\nTotal: " + money(totalPrice()) +
+    "\n\nDemonstração: nenhum pagamento foi realizado."
+  );
+});
+
+// NEWSLETTER - DEMONSTRAÇÃO
+$("#newsletter-form").addEventListener("submit", event => {
+  event.preventDefault();
+  $("#newsletter-message").textContent =
+    "Obrigado! Para registrar seu e-mail de verdade, conecte um serviço de cadastro.";
+  $("#email").value = "";
+});
+
+// INICIAR
+renderCart();
+</script>
+
+</body>
+</html>
